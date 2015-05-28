@@ -14,6 +14,7 @@ try {
     $loader->register();
     $di = new FactoryDefault();
     include '../app/config/service.php';
+    include '../vendor/autoload.php';
     $application = new Application($di);
     $application->useImplicitView(false);
     echo $application->handle()->getContent();
