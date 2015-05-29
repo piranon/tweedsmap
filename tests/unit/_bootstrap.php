@@ -1,2 +1,3 @@
 <?php
-// Here you can initialize variables that will be available to your tests
+include 'app/controllers/TweetsController.php';
+include 'app/libraries/TweetsLibrary.php';
