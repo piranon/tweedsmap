@@ -3,3 +3,6 @@
 /.project
 /.DS_Store
 vendor
+composer.lock
+
+tests/_output/*
