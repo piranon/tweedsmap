@@ -19,6 +19,35 @@ class TweetsLibrary {
     {
         $searchFields = $this->createSearchFields($options);
         $twitterAPIData = $this->getDataFromAPI($searchFields);
+        $tweets = $this->prepareDateTweets($twitterAPIData);
+        return $tweets;
+    }
+
+    private function createSearchFields($options)
+    {
+        $city = $options['city'];
+        $lat = $options['lat'];
+        $lng = $options['lng'];
+        $limit = $this->config->searchLimit;
+        $radius = $this->config->searchRadius;
+        $getfield = '?q=' . $city;
+        $getfield .= '&result_type=recent';
+        $getfield .= '&count=' . $limit;
+        $getfield .= '&geocode=' . $lat . ',' . $lng . ',' . $radius;
+        return $getfield;
+    }
+
+    private function getDataFromAPI($searchFields)
+    {
+        $url = $this->config->searchUrl;
+        $twitterAPI = $this->twitterAPIExchange->setGetfield($searchFields);
+        $twitterAPI = $twitterAPI->buildOauth($url, 'GET');
+        $jsonData = $twitterAPI->performRequest();
+        return json_decode($jsonData, true);
+    }
+
+    private function prepareDateTweets($twitterAPIData)
+    {
         $tweets = array();
         foreach ($twitterAPIData['statuses'] as $data) {
             $tweet = array();
@@ -37,28 +66,5 @@ class TweetsLibrary {
     {
         $date = str_replace('+0000', '', $date);
         return date( 'Y-m-d H:i:s', strtotime($date));
-    }
-
-    private function getDataFromAPI($searchFields)
-    {
-        $url = $this->config->searchUrl;
-        $twitterAPI = $this->twitterAPIExchange->setGetfield($searchFields);
-        $twitterAPI = $twitterAPI->buildOauth($url, 'GET');
-        $jsonData = $twitterAPI->performRequest();
-        return json_decode($jsonData, true);
-    }
-
-    private function createSearchFields($options)
-    {
-        $city = $options['city'];
-        $lat = $options['lat'];
-        $lng = $options['lng'];
-        $limit = $this->config->searchLimit;
-        $radius = $this->config->searchRadius;
-        $getfield = '?q=' . $city;
-        $getfield .= '&result_type=recent';
-        $getfield .= '&count=' . $limit;
-        $getfield .= '&geocode=' . $lat . ',' . $lng . ',' . $radius;
-        return $getfield;
     }
 }

@@ -3,10 +3,20 @@ use Phalcon\Mvc\View\Simple as SimpleView;
 use Phalcon\Http\Response\Cookies as Cookies;
 use Phalcon\Mvc\Router;
 
+$di->set('request', 'Phalcon\Http\Request', true);
+$di->set('response', 'Phalcon\Http\Response', true);
+$di->set('tweetsLibrary', 'TweetsLibrary', true);
+
 $di->set('config', function() {
     include '../app/config/config.php';
     $configObject = new \Phalcon\Config($config);
     return $configObject;
+}, true);
+
+$di->set('twitterAPIExchange', function() use ($di) {
+    $twitterOAuth = (array) $di->get('config')->twitterOAuth;
+    $twitterAPIExchange = new TwitterAPIExchange($twitterOAuth);
+    return $twitterAPIExchange;
 }, true);
 
 $di->set('view', function() {
