@@ -1,3 +1,10 @@
 <?php
-include 'app/controllers/TweetsController.php';
-include 'app/libraries/TweetsLibrary.php';
+$loader = new Phalcon\Loader();
+$loader->registerDirs(
+    array(
+        'app/controllers/',
+        'app/models/',
+        'app/libraries/'
+    )
+);
+$loader->register();
