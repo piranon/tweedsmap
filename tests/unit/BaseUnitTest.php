@@ -8,7 +8,7 @@ abstract class BaseUnitTest extends \PHPUnit_Framework_TestCase {
 	{
 		$di = new \Phalcon\DI\FactoryDefault();
 		$di->set('config', function() {
-		    include '../app/config/config.php';
+		    include 'app/config/config.php';
 		    $configObject = new \Phalcon\Config($config);
 		    return $configObject;
 		}, true);

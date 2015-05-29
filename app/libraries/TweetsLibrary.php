@@ -2,24 +2,28 @@
 
 class TweetsLibrary {
 
+    private $config;
     private $twitterAPIExchange;
+
+    public function setConfig(\Phalcon\Config $config)
+    {
+        $this->config = $config;
+    }
 
     public function setTwitterAPIExchange(TwitterAPIExchange $twitterAPIExchange)
     {
         $this->twitterAPIExchange = $twitterAPIExchange;
     }
 
-    public function getTweets()
+    public function getTweets($options)
     {
-        $getfield = '?q=กรุงเทพมหานคร&result_type=recent&count=30&geocode=13.7563309,100.50176510000006,50km';
-        $url = 'https://api.twitter.com/1.1/search/tweets.json';
-        $jsonData = $this->twitterAPIExchange->setGetfield($getfield)->buildOauth($url, 'GET')->performRequest();
-        $twitterAPIData = json_decode($jsonData, true);
+        $searchFields = $this->createSearchFields($options);
+        $twitterAPIData = $this->getDataFromAPI($searchFields);
         $tweets = array();
         foreach ($twitterAPIData['statuses'] as $data) {
             $tweet = array();
             $tweet['text'] = $data['text'];
-            $tweet['createdAt'] = date( 'Y-m-d H:i:s', strtotime(str_replace('+0000', '', $data['created_at'])));
+            $tweet['createdAt'] = $this->convertTwitterDate($data['created_at']);
             $tweet['userName'] = $data['user']['name'];
             $tweet['userProfileImageUrl'] = $data['user']['profile_image_url'];
             $tweet['lat'] = $data['coordinates']['coordinates'][1];
@@ -27,5 +31,34 @@ class TweetsLibrary {
             $tweets[] = $tweet;
         }
         return $tweets;
+    }
+
+    private function convertTwitterDate($date)
+    {
+        $date = str_replace('+0000', '', $date);
+        return date( 'Y-m-d H:i:s', strtotime($date));
+    }
+
+    private function getDataFromAPI($searchFields)
+    {
+        $url = $this->config->searchUrl;
+        $twitterAPI = $this->twitterAPIExchange->setGetfield($searchFields);
+        $twitterAPI = $twitterAPI->buildOauth($url, 'GET');
+        $jsonData = $twitterAPI->performRequest();
+        return json_decode($jsonData, true);
+    }
+
+    private function createSearchFields($options)
+    {
+        $city = $options['city'];
+        $lat = $options['lat'];
+        $lng = $options['lng'];
+        $limit = $this->config->searchLimit;
+        $radius = $this->config->searchRadius;
+        $getfield = '?q=' . $city;
+        $getfield .= '&result_type=recent';
+        $getfield .= '&count=' . $limit;
+        $getfield .= '&geocode=' . $lat . ',' . $lng . ',' . $radius;
+        return $getfield;
     }
 }
