@@ -68,4 +68,27 @@ class TweetsControllerTest extends BaseUnitTest
         $this->mockResponse->expects($this->once())->method('setContentType')->with('application/json');
         $ttt = $this->tweetsController->getTweetsAction();
     }
+
+    public function testValidateParamEmtyAllValues()
+    {
+        $expected = array(
+            'city' => 'กรุงเทพมหานคร', 'lat' => '13.7563309', 'lng' => '100.50176510000006'
+        );
+        $param = array();
+        $options = $this->tweetsController->validateParam($param);
+        $this->assertEquals($expected, $options);
+    }
+
+    public function testValidateParamWithExceedField()
+    {
+        $expected = array(
+            'city' => 'นครสวรรค์', 'lat' => '15.6213959', 'lng' => '99.9599927'
+        );
+        $param = array(
+            'city' => 'นครสวรรค์', 'lat' => '15.6213959', 'lng' => '99.9599927',
+            'wrongField' => '121212'
+        );
+        $options = $this->tweetsController->validateParam($param);
+        $this->assertEquals($expected, $options);
+    }
 }

@@ -20,6 +20,9 @@ $config['twitterOAuth'] = array(
     'consumer_key' => "hRoUJpS5ikeqzBCc1d6B7heSd",
     'consumer_secret' => "VipO8YdZbloULB0ISlDeFuQR2Fb6IKlgPDmjWxQS1b8Kch62J2"
 );
+$config['searchDefault'] = array(
+    'city' => 'กรุงเทพมหานคร', 'lat' => '13.7563309', 'lng' => '100.50176510000006'
+);
 $config['searchUrl'] = 'https://api.twitter.com/1.1/search/tweets.json';
 $config['searchLimit'] = 30;
 $config['searchRadius'] = '50km';
