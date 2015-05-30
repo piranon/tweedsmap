@@ -1,0 +1,29 @@
+#map-canvas { height: 100%; margin: 0; padding: 0;}
+
+html,
+body {
+  height: 100%;
+  text-align: center;
+}
+.buttonFooter {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    margin: 0;
+}
+.buttonFooter .form-control{
+    height: 46px;
+}
+.buttonFooter div {
+	padding: 0;
+}
+.btn-default, .btn-default:hover, .btn-default:focus {
+    color: #fff;
+    background-color: #57a6d4;
+    width: 100%;
+    border-radius:0;
+}
+/* img{
+    border-radius: 50px;
+    border:1px solid #000 !important;
+} */

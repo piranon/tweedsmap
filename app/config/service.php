@@ -1,5 +1,6 @@
 <?php
 use Phalcon\Mvc\View\Simple as SimpleView;
+use Phalcon\Mvc\View\Engine\Volt as Volt;
 use Phalcon\Http\Response\Cookies as Cookies;
 use Phalcon\Mvc\Router;
 
@@ -22,6 +23,19 @@ $di->set('twitterAPIExchange', function () use ($di) {
 $di->set('view', function () {
     $view = new SimpleView();
     $view->setViewsDir('../app/views/');
+    $view->registerEngines(array(
+        ".phtml" => function($view, $viewPath, $di) {
+            $volt = new Volt($view, $di);
+            $volt->setOptions(array(
+                'compiledPath' => function($templatePath) {
+                    $compiledPath = '../app/views/volt/';
+                    $templatePath = str_replace('../app/views/', $compiledPath, $templatePath);
+                    return $templatePath . '.php';
+                }
+            ));
+            return $volt;
+        }
+    ));
     return $view;
 }, true);
 
