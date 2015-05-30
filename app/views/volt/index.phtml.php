@@ -23,8 +23,8 @@
     <script src="<?php echo $jsUrl; ?>tweetsmap.js"></script>
   </head>
   <body>
-
     <div id="map-canvas"></div>
+    <div class="col-md-12 labels">TWEETS SEARCH</div>
     <div class="row buttonFooter">
         <div class="col-md-8">
             <input type="text" class="form-control" placeholder="City name" id="cityName">

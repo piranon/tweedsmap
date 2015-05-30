@@ -23,7 +23,15 @@ body {
     width: 100%;
     border-radius:0;
 }
-/* img{
-    border-radius: 50px;
-    border:1px solid #000 !important;
-} */
+.labels {
+	position: fixed;
+    top: 25px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    font-size: 25px;
+    font-weight: bold;
+    color: #57a6d4;
+    text-shadow: -1px 0 #fff, 0 1px #fff, 1px 0 #fff, 0 -1px #fff;
+}

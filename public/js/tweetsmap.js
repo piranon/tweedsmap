@@ -25,7 +25,6 @@ function codeAddress(address) {
 		'address' : address
 	}, function(results, status) {
 		if (status == google.maps.GeocoderStatus.OK) {
-
 			$.ajax({
 				method : "POST",
 				url : baseUrl + 'tweets/gettweets',
@@ -71,6 +70,7 @@ function getTweetsObjectSuccess(tweetsObject, results) {
 			infowindow.open(map, marker);
 		});
 	});
+	$('.labels').text('TWEETS ABOUT ' + $('#cityName').val());
 	$('body').loading('stop');
 }
 google.maps.event.addDomListener(window, 'load', initialize);
