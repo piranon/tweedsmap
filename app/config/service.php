@@ -42,3 +42,9 @@ $di->set('mongo', function() use ($di) {
     $db = $client->{$config->options->db};
     return $db;
 }, true);
+
+$di->set('tweetsModel', function() use ($di) {
+    $model = new TweetsModel();
+    $model->setMongo($di->get('mongo'));
+    return $model;
+}, true);

@@ -10,13 +10,10 @@ class TweetsModelTest extends BaseUnitTest
     protected function setUp()
     {
         parent::setUp();
-        $this->mockMongo = $this->getMockBuilder('MongoClient')->disableOriginalConstructor()->getMock();
+        $this->mockMongo = $this->getMockBuilder('MongoDB')->disableOriginalConstructor()->getMock();
         $this->mockMongoCollection = $this->getMockBuilder('MongoCollection')->disableOriginalConstructor()->getMock();
         $this->mockMongoCursor = $this->getMockBuilder('MongoCursor')->disableOriginalConstructor()->getMock();
-        $method = array(
-            'iteratorToArray'
-        );
-        $this->tweetsModel = $this->getMock('TweetsModel', $method);
+        $this->tweetsModel = new TweetsModel();
         $this->tweetsModel->setMongo($this->mockMongo);
     }
 
@@ -27,6 +24,10 @@ class TweetsModelTest extends BaseUnitTest
     public function testSaveTweetsCache()
     {
         $dateTime = date('Y-m-d H:i:s');
+        $cacteTime = $this->di->get('config')->searchCacheTime;
+        $cacteTimeInSec = strtotime($dateTime);
+        $cacheDate = $cacteTimeInSec + $cacteTime;
+        $expireAt =  date('Y-m-d H:i:s', $cacheDate);
         $tweets = array(
             array(
                 'text' => 'ร้อน (@ กรุงเทพมหานคร (Bangkok) in Bangkok, Thailand) https://t.co/boganjD9cs',
@@ -36,12 +37,12 @@ class TweetsModelTest extends BaseUnitTest
             )
         );
         $tweetsCache = array(
-            'city' => 'กรุงเทพมหานคร', 'expireAt' => new MongoDate(strtotime($dateTime)),
+            'city' => 'กรุงเทพมหานคร', 'expireAt' => new MongoDate(strtotime($expireAt)),
             'tweets' => $tweets
         );
         $this->mockMongo->expects($this->once())->method('selectCollection')->with('tweets')->will($this->returnValue($this->mockMongoCollection));
         $this->mockMongoCollection->expects($this->once())->method('insert')->with($tweetsCache)->will($this->returnValue($this->mockMongoCollection));
-        $this->tweetsModel->save('กรุงเทพมหานคร', $tweets);
+        $this->tweetsModel->save('กรุงเทพมหานคร', $tweets, $cacteTime);
     }
 
     public function testGetTweetsCache()
@@ -62,8 +63,7 @@ class TweetsModelTest extends BaseUnitTest
             'city' => 'กรุงเทพมหานคร'
         );
         $this->mockMongo->expects($this->once())->method('selectCollection')->with('tweets')->will($this->returnValue($this->mockMongoCollection));
-        $this->mockMongoCollection->expects($this->once())->method('find')->with($where)->will($this->returnValue($this->mockMongoCursor));
-        $this->tweetsModel->expects($this->once())->method('iteratorToArray')->will($this->returnValue($tweetsCache));
+        $this->mockMongoCollection->expects($this->once())->method('findOne')->with($where)->will($this->returnValue($tweetsCache));
         $tweets = $this->tweetsModel->get('กรุงเทพมหานคร');
         $this->assertEquals($expected, $tweets);
     }

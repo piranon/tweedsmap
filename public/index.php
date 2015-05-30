@@ -2,6 +2,15 @@
 use Phalcon\Loader;
 use Phalcon\DI\FactoryDefault;
 use Phalcon\Mvc\Application;
+
+if (strpos($_SERVER['HTTP_HOST'], 'localhost') !== false) {
+    define('ENVIRONMENT', 'development');
+    error_reporting(E_ALL);
+} else {
+    define('ENVIRONMENT', 'production');
+    error_reporting(0);
+}
+
 try {
     $loader = new Loader();
     $loader->registerDirs(

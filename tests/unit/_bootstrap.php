@@ -1,4 +1,5 @@
 <?php
+define('ENVIRONMENT', 'development');
 $loader = new Phalcon\Loader();
 $loader->registerDirs(
     array(
