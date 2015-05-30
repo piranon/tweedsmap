@@ -1,7 +1,7 @@
 <?php
 
-class TweetsLibrary {
-
+class TweetsLibrary
+{
     private $config;
     private $twitterAPIExchange;
 
@@ -65,6 +65,6 @@ class TweetsLibrary {
     private function convertTwitterDate($date)
     {
         $date = str_replace('+0000', '', $date);
-        return date( 'Y-m-d H:i:s', strtotime($date));
+        return date('Y-m-d H:i:s', strtotime($date));
     }
 }
