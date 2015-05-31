@@ -1,5 +1,23 @@
 var geocoder;
 var map;
+$(document).ready(function() {
+	var cityName = getParameterByName('q');
+	if (cityName) {
+		$('#cityName').val(cityName);
+		google.maps.event.addDomListener(window, 'load', search(cityName));
+	} else {
+		google.maps.event.addDomListener(window, 'load', initialize);
+	}
+	$(document).keypress(function(e) {
+		var code = e.keyCode || e.which;
+		if (code == 13) {
+			search($('#cityName').val());
+		}
+	});
+	$("#search").click(function() {
+		search($('#cityName').val());
+	});
+});
 function initialize() {
 	geocoder = new google.maps.Geocoder();
 	var latlng = new google.maps.LatLng(13.7246005, 100.6331108);
@@ -9,14 +27,8 @@ function initialize() {
 	}
 	map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 }
-$(document).keypress(function(e) {
-	var code = e.keyCode || e.which;
-	if (code == 13) {
-		search();
-	}
-});
-function search() {
-	var cityName = $('#cityName').val();
+function search(cityName) {
+	initialize();
 	if (cityName) {
 		codeAddress(cityName);
 	} else {
@@ -43,7 +55,6 @@ function codeAddress(address) {
 			}).done(function(tweetsObject) {
 				getTweetsObjectSuccess(tweetsObject, results);
 			});
-
 		} else {
 			alert('Geocode was not successful for the following reason: '
 					+ status);
@@ -52,7 +63,6 @@ function codeAddress(address) {
 	});
 }
 function getTweetsObjectSuccess(tweetsObject, results) {
-	initialize();
 	map.setCenter(results[0].geometry.location);
 	var image = {
 		url : '',
@@ -79,4 +89,10 @@ function getTweetsObjectSuccess(tweetsObject, results) {
 	$('.labels').text('TWEETS ABOUT ' + $('#cityName').val());
 	$('body').loading('stop');
 }
-google.maps.event.addDomListener(window, 'load', initialize);
+function getParameterByName(name) {
+	name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+	var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"), results = regex
+			.exec(location.search);
+	return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g,
+			" "));
+}

@@ -1,9 +1,8 @@
 #map-canvas { height: 100%; margin: 0; padding: 0;}
-
 html,
 body {
-  height: 100%;
-  text-align: center;
+    height: 100%;
+     text-align: center;
 }
 .buttonFooter {
     position: fixed;
@@ -34,4 +33,11 @@ body {
     font-weight: bold;
     color: #57a6d4;
     text-shadow: -1px 0 #fff, 0 1px #fff, 1px 0 #fff, 0 -1px #fff;
+}
+.list-group {   
+	text-align: left;
+}
+.list-group a {
+    padding-left: 30px;
+    border: 1px solid #57a6d4;
 }

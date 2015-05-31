@@ -31,13 +31,12 @@
             <input type="text" class="form-control" placeholder="City name" id="cityName">
         </div>
         <div class="col-md-2">
-            <button class="btn btn-default btn-lg" type="button" onclick="search()">SEARCH</button>
+            <button class="btn btn-default btn-lg" type="button" id="search">SEARCH</button>
         </div>
         <div class="col-md-2">
-            <button class="btn btn-default btn-lg" type="button">HISTORY</button>
+            <a href="<?php echo $baseUrl; ?>history/" class="btn btn-default btn-lg" type="button">HISTORY</a>
         </div>
     </div>
-    <script src="<?php echo $jsUrl; ?>bootstrap.min.js"></script>
     <script src="<?php echo $jsUrl; ?>loading.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="<?php echo $jsUrl; ?>ie10-viewport-bug-workaround.js"></script>

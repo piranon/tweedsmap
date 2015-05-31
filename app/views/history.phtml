@@ -16,27 +16,22 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
     <script src="{{ jsUrl }}jquery.min.js"></script>
-    <script type="text/javascript">
-     var baseUrl = '{{ baseUrl }}';
-    </script>
-    <script src="{{ jsUrl }}tweetsmap.js"></script>
+<!--     <script src="{{ jsUrl }}tweetsmap.js"></script> -->
   </head>
   <body>
-    <div id="map-canvas"></div>
-    <div class="col-md-12 labels">TWEETS MAP</div>
-    <div class="row buttonFooter">
-        <div class="col-md-8">
-            <input type="text" class="form-control" placeholder="City name" id="cityName">
-        </div>
-        <div class="col-md-2">
-            <button class="btn btn-default btn-lg" type="button" id="search">SEARCH</button>
-        </div>
-        <div class="col-md-2">
-            <a href="{{ baseUrl }}history/" class="btn btn-default btn-lg" type="button">HISTORY</a>
-        </div>
+    <div class="list-group">
+        {% if histories[0] is empty %}
+            {% set backUrl = baseUrl %}
+        {% else %}
+            {% set backUrl = baseUrl ~ "q=" ~ histories[0] %}
+        {% endif %}
+        <a href="{{ backUrl }}" class="list-group-item history-list"><< BACK TO THE TWEETS!</a>
+        {% for history in histories %}
+            <a href="{{ baseUrl }}?q={{ history }}" class="list-group-item history-list">{{ history }}</a>
+        {% endfor  %}
     </div>
+    <script src="{{ jsUrl }}bootstrap.min.js"></script>
     <script src="{{ jsUrl }}loading.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="{{ jsUrl }}ie10-viewport-bug-workaround.js"></script>
