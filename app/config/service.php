@@ -7,6 +7,7 @@ use Phalcon\Mvc\Router;
 $di->set('request', 'Phalcon\Http\Request', true);
 $di->set('response', 'Phalcon\Http\Response', true);
 $di->set('tweetsLibrary', 'TweetsLibrary', true);
+$di->set('cookiesLibrary', 'CookiesLibrary', true);
 
 $di->set('config', function () {
     include '../app/config/config.php';

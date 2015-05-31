@@ -9,6 +9,12 @@ function initialize() {
 	}
 	map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 }
+$(document).keypress(function(e) {
+	var code = e.keyCode || e.which;
+	if (code == 13) {
+		search();
+	}
+});
 function search() {
 	var cityName = $('#cityName').val();
 	if (cityName) {
