@@ -31,7 +31,7 @@ class TweetsLibraryTest extends BaseUnitTest
         $options = array(
             'city' => 'กรุงเทพมหานคร', 'lat' => '13.7563309', 'lng' => '100.50176510000006'
         );
-        $getfield = '?q=กรุงเทพมหานคร&result_type=recent&count=30&geocode=13.7563309,100.50176510000006,50km';
+        $getfield = '?q=กรุงเทพมหานคร&result_type=mixed&count=30&geocode=13.7563309,100.50176510000006,50km';
         $url = 'https://api.twitter.com/1.1/search/tweets.json';
         $twitterAPIReturn = '{
                 "statuses": [{
