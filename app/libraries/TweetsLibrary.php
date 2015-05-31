@@ -31,7 +31,7 @@ class TweetsLibrary
         $limit = $this->config->searchLimit;
         $radius = $this->config->searchRadius;
         $getfield = '?q=' . $city;
-        $getfield .= '&result_type=recent';
+        $getfield .= '&result_type=mixed';
         $getfield .= '&count=' . $limit;
         $getfield .= '&geocode=' . $lat . ',' . $lng . ',' . $radius;
         return $getfield;

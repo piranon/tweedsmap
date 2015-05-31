@@ -21,24 +21,23 @@ $di->set('twitterAPIExchange', function () use ($di) {
     return $twitterAPIExchange;
 }, true);
 
-$di->set('view', function () {
+$di->set('volt', function($view, $di) {
+    $volt = new Volt($view, $di);
+    $volt->setOptions(array(
+        "compiledPath" => "../app/views/compiled/",
+        "compiledExtension" => ".compiled"
+    ));
+    return $volt;
+});
+
+$di->set('view', function() {
     $view = new SimpleView();
     $view->setViewsDir('../app/views/');
     $view->registerEngines(array(
-        ".phtml" => function($view, $viewPath, $di) {
-            $volt = new Volt($view, $di);
-            $volt->setOptions(array(
-                'compiledPath' => function($templatePath) {
-                    $compiledPath = '../app/views/volt/';
-                    $templatePath = str_replace('../app/views/', $compiledPath, $templatePath);
-                    return $templatePath . '.php';
-                }
-            ));
-            return $volt;
-        }
+        ".phtml" => 'volt'
     ));
     return $view;
-}, true);
+});
 
 $di->set('cookies', function () {
     $cookies = new Cookies();
