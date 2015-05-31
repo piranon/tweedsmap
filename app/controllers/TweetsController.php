@@ -17,6 +17,8 @@ class TweetsController extends \Phalcon\Mvc\Controller
             $cacheTime = $this->config->searchCacheTime;
             $this->tweetsModel->save($options['city'], $tweets, $cacheTime);
         }
+        $this->cookiesLibrary->setCookie($this->cookies);
+        $this->cookiesLibrary->save($options['city']);
         $this->response->setContentType('application/json');
         $this->response->setJsonContent($tweets);
     }

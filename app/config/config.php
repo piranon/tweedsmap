@@ -1,5 +1,9 @@
 <?php
 if (ENVIRONMENT == 'production') {
+    $config['baseUrl'] = 'http://localhost/tweetsmap/';
+    $config['cssUrl'] = $config['baseUrl'] . 'css/';
+    $config['jsUrl'] = $config['baseUrl'] . 'js/';
+    $config['diUrl'] = $config['baseUrl'] . 'di/';
     $config['mongo'] = array(
         'server' => 'mongodb://localhost:27017',
         'options' => array(
@@ -7,6 +11,10 @@ if (ENVIRONMENT == 'production') {
         )
     );
 } else {
+    $config['baseUrl'] = 'http://localhost/tweetsmap/';
+    $config['cssUrl'] = $config['baseUrl'] . 'css/';
+    $config['jsUrl'] = $config['baseUrl'] . 'js/';
+    $config['diUrl'] = $config['baseUrl'] . 'di/';
     $config['mongo'] = array(
         'server' => 'mongodb://localhost:27017',
         'options' => array(

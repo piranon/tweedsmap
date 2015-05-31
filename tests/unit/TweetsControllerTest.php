@@ -6,6 +6,7 @@ class TweetsControllerTest extends BaseUnitTest
     private $mockRequest;
     private $mockResponse;
     private $mockTweetsLibrary;
+    private $mockCookiesLibrary;
     private $mockTweetsModel;
     private $mockTwitterAPIExchange;
 
@@ -16,11 +17,13 @@ class TweetsControllerTest extends BaseUnitTest
         $this->mockRequest = $this->getMockBuilder('\Phalcon\Http\Request')->getMock();
         $this->mockResponse = $this->getMockBuilder('\Phalcon\Http\Response')->getMock();
         $this->mockTweetsLibrary = $this->getMockBuilder('TweetsLibrary')->disableOriginalConstructor()->getMock();
+        $this->mockCookiesLibrary = $this->getMockBuilder('CookiesLibrary')->disableOriginalConstructor()->getMock();
         $this->mockTweetsModel = $this->getMockBuilder('TweetsModel')->disableOriginalConstructor()->getMock();
         $this->mockTwitterAPIExchange = $this->getMockBuilder('TwitterAPIExchange')->disableOriginalConstructor()->getMock();
         $this->di->set('request', $this->mockRequest);
         $this->di->set('response', $this->mockResponse);
         $this->di->set('tweetsLibrary', $this->mockTweetsLibrary);
+        $this->di->set('cookiesLibrary', $this->mockCookiesLibrary);
         $this->di->set('tweetsModel', $this->mockTweetsModel);
         $this->di->set('twitterAPIExchange', $this->mockTwitterAPIExchange);
         $this->tweetsController->setDI($this->di);
@@ -41,9 +44,11 @@ class TweetsControllerTest extends BaseUnitTest
         $this->mockTweetsLibrary->expects($this->once())->method('setTwitterAPIExchange');
         $this->mockTweetsLibrary->expects($this->once())->method('getTweets');
         $this->mockTweetsModel->expects($this->once())->method('save');
+        $this->mockCookiesLibrary->expects($this->once())->method('setCookie');
+        $this->mockCookiesLibrary->expects($this->once())->method('save');
         $this->mockResponse->expects($this->once())->method('setJsonContent');
         $this->mockResponse->expects($this->once())->method('setContentType')->with('application/json');
-        $ttt = $this->tweetsController->getTweetsAction();
+        $this->tweetsController->getTweetsAction();
     }
 
     public function testGetTweetFromTwitterCache()
@@ -64,6 +69,8 @@ class TweetsControllerTest extends BaseUnitTest
         $this->mockTweetsLibrary->expects($this->never())->method('setTwitterAPIExchange');
         $this->mockTweetsLibrary->expects($this->never())->method('getTweets');
         $this->mockTweetsModel->expects($this->never())->method('save');
+        $this->mockCookiesLibrary->expects($this->once())->method('setCookie');
+        $this->mockCookiesLibrary->expects($this->once())->method('save');
         $this->mockResponse->expects($this->once())->method('setJsonContent');
         $this->mockResponse->expects($this->once())->method('setContentType')->with('application/json');
         $ttt = $this->tweetsController->getTweetsAction();
