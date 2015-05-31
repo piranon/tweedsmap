@@ -2,7 +2,7 @@
 
 class CookiesLibrary
 {
-    private $cookie;
+    private $cookies;
 
     public function setCookie(Phalcon\Http\Response\Cookies $cookie)
     {
@@ -13,7 +13,7 @@ class CookiesLibrary
     {
         $cookieKey = 'cityName';
         $cookieValue = $this->get();
-        if(($key = array_search($cityName, $cookieValue)) !== false) {
+        if (($key = array_search($cityName, $cookieValue)) !== false) {
             unset($cookieValue[$key]);
         }
         array_unshift($cookieValue, $cityName);
