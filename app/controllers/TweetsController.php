@@ -1,7 +1,17 @@
 <?php
-
+/**
+ * TweetsController is responsible for processing the incoming requests from IndexController.
+ * Provide the "flow" between model and libraries. Response data in json format.
+ *
+ */
 class TweetsController extends \Phalcon\Mvc\Controller
 {
+
+    /**
+     * Interrogating model or library for data, save cache data and response data in json format.
+     *
+     * URL: /tweets/gettweets
+     */
     public function getTweetsAction()
     {
         $param = array();
@@ -23,6 +33,12 @@ class TweetsController extends \Phalcon\Mvc\Controller
         $this->response->setJsonContent($tweets);
     }
 
+    /**
+     * Validate search param and set default if data empty
+     *
+     * @param array $param  Request from client.
+     * @return array    Return search criteria.
+     */
     public function validateParam($param)
     {
         $searchDefault = (array) $this->config->searchDefault;

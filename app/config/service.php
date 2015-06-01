@@ -1,4 +1,13 @@
 <?php
+/**
+ * Service
+ *
+ * This is a variant of the standard Phalcon\DI.
+ * It automatically registers all the services provided by the framework.
+ * Represents individually a service in the services container
+ *
+ *
+ */
 use Phalcon\Mvc\View\Simple as SimpleView;
 use Phalcon\Mvc\View\Engine\Volt as Volt;
 use Phalcon\Http\Response\Cookies as Cookies;
@@ -43,11 +52,6 @@ $di->set('cookies', function () {
     $cookies = new Cookies();
     $cookies->useEncryption(false);
     return $cookies;
-}, true);
-
-$di->set('router', function () use ($di) {
-    include '../app/config/routes.php';
-    return $router;
 }, true);
 
 $di->set('mongo', function () use ($di) {

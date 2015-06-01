@@ -1,0 +1,13 @@
+{{ partial("header") }}
+    <div class="list-group">
+        {% if histories[0] is empty %}
+            {% set backUrl = this.config.baseUrl %}
+        {% else %}
+            {% set backUrl = this.config.baseUrl ~ "?q=" ~ histories[0] %}
+        {% endif %}
+        <a href="{{ backUrl }}" class="list-group-item history-list">< BACK TO THE TWEETS!</a>
+        {% for history in histories %}
+            <a href="{{ this.config.baseUrl }}?q={{ history }}" class="list-group-item history-list">{{ history }}</a>
+        {% endfor  %}
+    </div>
+{{ partial("footer") }}

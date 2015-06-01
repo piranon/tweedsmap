@@ -1,14 +1,33 @@
 <?php
-
+/**
+ * CookiesLibrary is responsible for store and fetch the user's search history from cookies
+ *
+ */
 class CookiesLibrary
 {
+
+    /**
+     * @var \Phalcon\Http\Response\Cookies $cookies
+     *          An instance of \Phalcon\Http\Response\Cookies
+     */
     private $cookies;
 
+    /**
+     * Sets the cookies
+     *
+     * @param \Phalcon\Http\Response\Cookies $cookie
+     *          OO wrappers a HTTP cookie
+     */
     public function setCookie(Phalcon\Http\Response\Cookies $cookie)
     {
         $this->cookies = $cookie;
     }
 
+    /**
+     * Store user's search history
+     *
+     * @param string $cityName  Location given by the user.
+     */
     public function save($cityName)
     {
         $cookieKey = 'cityName';
@@ -20,6 +39,11 @@ class CookiesLibrary
         $this->cookies->set($cookieKey, serialize($cookieValue), time() + 15 * 86400);
     }
 
+    /**
+     * Fetch the user's search history
+     *
+     * @param array List of location
+     */
     public function get()
     {
         $cookieKey = 'cityName';

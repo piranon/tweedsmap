@@ -1,4 +1,13 @@
 <?php
+/**
+ * Phalcon\Config
+ *
+ * Phalcon\Config is configuration data within applications.
+ * It provides a nested object property based user interface for accessing this configuration data within
+ * application code.
+ *
+ *
+ */
 if (ENVIRONMENT == 'production') {
     $config['baseUrl'] = 'http://localhost/tweetsmap/';
     $config['cssUrl'] = $config['baseUrl'] . 'css/';
