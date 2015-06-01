@@ -40,7 +40,7 @@ $ db.tweets.createIndex( { "expireAt": 1 }, { expireAfterSeconds: 0 } )
 
 #### Unit test
 ```
-$ ./vendor/bin/codecept run unit
+$ ./vendor/bin/codecept run unit --html
 ```
 
 #### Code coverage
