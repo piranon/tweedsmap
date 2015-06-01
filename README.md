@@ -3,6 +3,7 @@
 - Demo application: http://tweetsmap.siam4friend.com
 - Code coverage : http://tweetsmap.siam4friend.com/coverage/
 - Unit test : http://tweetsmap.siam4friend.com/report.html
+- Docs : http://tweetsmap.siam4friend.com/public/docs/
 
 ## Requirements
 
