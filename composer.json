@@ -7,6 +7,7 @@
     "require-dev": {
         "phpmd/phpmd" : "@stable",
         "sebastian/phpcpd": "*",
-        "phploc/phploc": "*"
+        "phploc/phploc": "*",
+        "phpdocumentor/phpdocumentor": "2.*"
     }
 }

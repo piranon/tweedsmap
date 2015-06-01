@@ -1,9 +1,9 @@
 # tweetsmap
 
-- Demo application: http://tweetsmap.siam4friend.com
-- Code coverage : http://tweetsmap.siam4friend.com/coverage/
-- Unit test : http://tweetsmap.siam4friend.com/report.html
-- Docs : http://tweetsmap.siam4friend.com/public/docs/
+- Demo application: http://tweetsmap.tk
+- Code coverage : http://tweetsmap.tk/coverage/
+- Unit test : http://tweetsmap.tk/report.html
+- Docs : http://tweetsmap.tk/docs/
 
 ## Requirements
 
@@ -62,3 +62,8 @@ $ ./vendor/bin/phpmd app text phpmd.xml
 ```
 $ ./vendor/bin/phpcpd app
 ```
+
+#### phpDocumentor
+```
+$ ./vendor/bin/phpdoc -d ./app -t ./tests/_output/docs
+``` 

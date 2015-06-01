@@ -9,7 +9,7 @@
  *
  */
 if (ENVIRONMENT == 'production') {
-    $config['baseUrl'] = 'http://tweetsmap.siam4friend.com/';
+    $config['baseUrl'] = 'http://tweetsmap.tk/';
     $config['cssUrl'] = $config['baseUrl'] . 'css/';
     $config['jsUrl'] = $config['baseUrl'] . 'js/';
     $config['diUrl'] = $config['baseUrl'] . 'di/';
