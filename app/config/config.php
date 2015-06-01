@@ -9,7 +9,7 @@
  *
  */
 if (ENVIRONMENT == 'production') {
-    $config['baseUrl'] = 'http://localhost/tweetsmap/';
+    $config['baseUrl'] = 'http://tweetsmap.siam4friend.com/';
     $config['cssUrl'] = $config['baseUrl'] . 'css/';
     $config['jsUrl'] = $config['baseUrl'] . 'js/';
     $config['diUrl'] = $config['baseUrl'] . 'di/';
@@ -43,4 +43,4 @@ $config['searchDefault'] = array(
 $config['searchUrl'] = 'https://api.twitter.com/1.1/search/tweets.json';
 $config['searchLimit'] = 30;
 $config['searchRadius'] = '50km';
-$config['searchCacheTime'] = 120;
+$config['searchCacheTime'] = 3600;
